@@ -38,6 +38,10 @@ void test() {
 
     unique_ptr<int> q = std::move(r);  // move r to q
     assert(*q == 2);
+    
+    *q = 3;
+    std::cout << "q points to int " << *q << endl;
+    assert(*q == 3);
 
     auto f = make_unique<C>(1, 1);  // val = 2.
     auto g = make_unique<C>(10.);   // val = 100.
