@@ -33,18 +33,18 @@ struct car
 int64_t create_car()
 {
     car *c = new car;
-    return reinterpret_cast<int64_t>(c);
+    return reinterpret_cast<int64_t>(c);  // cast pointer to int
 }
 
 int64_t get_car_doors(int64_t car_id)
 {
-    car *c = reinterpret_cast<car*>(car_id);
+    car *c = reinterpret_cast<car*>(car_id);  // cast back int to pointer
     return c->doors;
 }
 
 void destroy_car(int64_t car_id)
 {
-    car *c = reinterpret_cast<car*>(car_id);
+    car *c = reinterpret_cast<car*>(car_id);  // cast back int to pointer
     delete c;
 }
 
