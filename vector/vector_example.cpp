@@ -71,6 +71,9 @@ void testIterators() {
     cout << "\nOutput of begin and end: ";
     for (auto i = g1.begin(); i != g1.end(); ++i)
         cout << *i << " ";
+    
+    auto citem = g1.cbegin();
+    cout << "\nOutput of 2nd item: " << *(citem + 1);
 
     cout << "\nOutput of cbegin and cend: ";
     for (auto i = g1.cbegin(); i != g1.cend(); ++i)
