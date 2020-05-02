@@ -42,8 +42,29 @@ void testCaptureExpression() {
     // Capture by value
     [one, two]() { cout << one << "," << two << endl; }();
     
+    // Capture all by value
+    [=]() { cout << one << "," << two << endl; }();
+    
     // Capture by reference
     [&one, &two]() { one = 2; cout << one << "," << two << endl; }();
+    
+    // Capture all by reference
+    // Avoid to use it.
+    // Allowing default capture runs the risk of the wrong capture mode being used inadvertently (which can be fatal).
+    // http://cppatomic.blogspot.com/2018/03/modern-effective-c-avoid-default.html
+    [&]() { cout << one << "," << two << endl; }();
+}
+
+/// http://cppatomic.blogspot.com/2018/03/modern-effective-c-avoid-default.html
+auto getRandomAdderFunction()
+{
+    int x = rand() % 100;
+    std::cout << "Random generated : " << x << '\n';
+    auto adder = [&](int param)
+    {
+        return x + param;
+    };
+    return adder;
 }
 
 int main() {
@@ -51,6 +72,10 @@ int main() {
     testIntParameter();
     testGeneralizedLambda();
     testCaptureExpression();
+    
+    auto adderFunc = getRandomAdderFunction();
+    std::cout << "Adding 10. Result is = " << adderFunc(10);   // x is out of scope in main, resulting wrong value
+    
     std::cout << "\nOK\n";
 
 }
